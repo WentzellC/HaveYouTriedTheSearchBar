@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Have You Tried the Search Bar?</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4947621596037562"
+        crossorigin="anonymous"></script>
+    <link rel="icon" type="image/png" href="logo_user.png">
+</head>
+
+<body>
+    <!-- Generator View -->
+    <div id="generator-view" class="view hidden">
+        <div class="generator-card">
+            <div class="logo-container">
+                <img src="logo_user.png" class="reddit-icon-large" alt="Fedora Logo">
+            </div>
+            <h1>Have You Tried the Search Bar?</h1>
+            <p>For all those repetitive posts. Generate a link to show them how it's done.</p>
+            <div class="input-group">
+                <textarea id="question-input" placeholder="Enter the question here..." rows="3"></textarea>
+                <button id="generate-btn">Generate Shareable Link</button>
+            </div>
+            <div id="result-group" class="hidden">
+                <input type="text" id="link-output" readonly>
+                <button id="copy-btn" title="Copy standard URL">Copy Link</button>
+                <button id="copy-reddit-btn" class="reddit-btn" title="Copy Markdown formatted for Reddit">Copy for
+                    Reddit</button>
+            </div>
+            <div id="toast" class="toast hidden">Copied to clipboard!</div>
+        </div>
+
+        <!-- Ad Modal Overlay -->
+        <div id="ad-modal" class="modal-overlay hidden">
+            <div class="modal-content">
+                <h2>Generating Link...</h2>
+                <p>Please wait while we prepare your custom shareable link.</p>
+
+                <div class="ad-placeholder">
+                    <!-- Google AdSense Ad Unit -->
+                    <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-4947621596037562"
+                        data-ad-format="auto" data-full-width-responsive="true"></ins>
+                    <script>
+                        (adsbygoogle = window.adsbygoogle || []).push({});
+                    </script>
+                </div>
+
+                <div class="countdown-container">
+                    <div class="spinner"></div>
+                    <p>Your link will be ready in <span id="countdown">8</span> seconds.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="copyright">&copy; 2026</div>
+    </div>
+
+    <!-- Animation View -->
+    <div id="animation-view" class="view hidden">
+        <div class="chrome-window">
+            <div class="chrome-tabs">
+                <div class="chrome-tab active">
+                    <span class="tab-icon" id="tab-icon">🌐</span>
+                    <span class="tab-title" id="tab-title">New Tab</span>
+                </div>
+                <div class="chrome-tab-add">+</div>
+            </div>
+            <div class="chrome-address-bar-container">
+                <div class="chrome-nav-btn">←</div>
+                <div class="chrome-nav-btn">→</div>
+                <div class="chrome-nav-btn">↻</div>
+                <div class="address-bar" id="fake-address-bar">
+                    <span id="address-typing" class="address-text"></span><span id="address-cursor"
+                        class="blinking-cursor">|</span>
+                </div>
+            </div>
+
+            <div class="chrome-viewport" id="chrome-viewport">
+                <!-- New Tab State -->
+                <div id="new-tab-view" class="new-tab-view">
+                    <div class="google-logo">
+                        <span style="color:#4285F4">G</span><span style="color:#EA4335">o</span><span
+                            style="color:#FBBC05">o</span><span style="color:#4285F4">g</span><span
+                            style="color:#34A853">l</span><span style="color:#EA4335">e</span>
+                    </div>
+                    <div class="google-search-box">
+                        <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" class="search-icon">
+                            <path
+                                d="M15.59 14.17l4.12 4.12-1.41 1.41-4.12-4.12c-1.31 1.05-2.95 1.67-4.73 1.67-4.14 0-7.5-3.36-7.5-7.5S5.31 2.25 9.45 2.25s7.5 3.36 7.5 7.5c0 1.78-.62 3.42-1.36 4.42zm-6.14.83c3.31 0 6-2.69 6-6s-2.69-6-6-6-6 2.69-6 6 2.69 6 6 6z"
+                                fill="#9aa0a6" />
+                        </svg>
+                    </div>
+                </div>
+
+                <!-- Reddit State -->
+                <div id="reddit-view" class="reddit-view hidden">
+                    <div class="fake-reddit-nav">
+                        <div class="reddit-logo">
+                            <span>reddit</span>
+                        </div>
+                        <div class="search-container">
+                            <div class="search-bar large" id="fake-search-bar">
+                                <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" class="search-icon">
+                                    <path
+                                        d="M15.59 14.17l4.12 4.12-1.41 1.41-4.12-4.12c-1.31 1.05-2.95 1.67-4.73 1.67-4.14 0-7.5-3.36-7.5-7.5S5.31 2.25 9.45 2.25s7.5 3.36 7.5 7.5c0 1.78-.62 3.42-1.36 4.42zm-6.14.83c3.31 0 6-2.69 6-6s-2.69-6-6-6-6 2.69-6 6 2.69 6 6 6z"
+                                        fill="#878a8c" />
+                                </svg>
+                                <span id="typing-text" class="placeholder">Search Reddit</span><span id="cursor-blink"
+                                    class="blinking-cursor hidden">|</span>
+                            </div>
+                        </div>
+                        <div class="nav-right">
+                            <div class="nav-btn">Log In</div>
+                        </div>
+                    </div>
+
+                    <div class="fake-content">
+                        <div class="skeleton-post">
+                            <div class="skeleton-title"></div>
+                            <div class="skeleton-body"></div>
+                            <div class="skeleton-footer"></div>
+                        </div>
+                        <div class="skeleton-post">
+                            <div class="skeleton-title"></div>
+                            <div class="skeleton-body" style="height: 100px;"></div>
+                            <div class="skeleton-footer"></div>
+                        </div>
+                        <div class="skeleton-post">
+                            <div class="skeleton-title" style="width: 60%;"></div>
+                            <div class="skeleton-body" style="height: 50px;"></div>
+                            <div class="skeleton-footer"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="mouse-cursor" class="mouse-cursor">
+            <svg viewBox="0 0 24 24" width="32" height="32" xmlns="http://www.w3.org/2000/svg">
+                <!-- A nice stylized cursor pointer -->
+                <path d="M7 2l12 11.2-5.8.5 3.3 7.3-2.2.9-3.2-7.4-4.4 4.8z" fill="#fff" stroke="#000" stroke-width="1.5"
+                    stroke-linejoin="round" />
+            </svg>
+        </div>
+
+        <a href="http://www.haveyoutriedthesearchbar.fyi/" class="create-own-link">Create Your Own</a>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
